@@ -2304,7 +2304,9 @@ class BaseModelResource(Resource):
 
                 setattr(related_obj, field_object.related_name, bundle.obj)
 
-            related_resource = field_object.get_related_resource(related_obj)
+            # Do not attempt to get related resource if related object is None
+            if related_obj:
+                related_resource = field_object.get_related_resource(related_obj)
 
             # Before we build the bundle & try saving it, let's make sure we
             # haven't already saved it.
